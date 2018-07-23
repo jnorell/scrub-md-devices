@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# scrub-md-devivces scrub linux md devices periodically
+
+# This script will scrub linux md devices as per
+# https://raid.wiki.kernel.org/index.php/Scrubbing_the_drives
+# (see the notes on raid6 there if you use it)
+#
+# Run periodically, eg. from cron.
+#
+# https://github.com/jnorell/scrub-md-devices
+
+# Copyright (c) 2018, Jesse Norell <jesse@kci.net>
+# Copyright (c) 2018, Kentec Communications, Inc.
+# All rights reserved.
+
+# todo:  for raid6, any data errors should be follwed with running 'raid6check'
+
+ls -1d /sys/block/md*/md 2>/dev/null | while read md
+do
+	if [ -f "${md}/level" -a -f "${md}/sync_action" -a $(cat "${md}/sync_action") == "idle" ]
+	then
+		if [ $(cat "${md}/level") == "raid5" ]
+		then
+			echo repair > "${md}/sync_action"
+		else
+			echo check > "${md}/sync_action"
+		fi
+	fi
+done
+
+exit 0

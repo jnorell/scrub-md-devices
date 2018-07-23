@@ -11,3 +11,5 @@ chmod +x /etc/cron.monthly/scrub-md-devices
 
 # See Also
 https://raid.wiki.kernel.org/index.php/Scrubbing_the_drives
+
+In particular the notes on raid6, if you use that.
