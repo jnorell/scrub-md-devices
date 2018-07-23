@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # scrub-md-devivces scrub linux md devices periodically
 
@@ -37,9 +37,9 @@
 
 ls -1d /sys/block/md*/md 2>/dev/null | while read md
 do
-	if [ -f "${md}/level" -a -f "${md}/sync_action" -a $(cat "${md}/sync_action") == "idle" ]
+	if [ -f "${md}/level" -a -f "${md}/sync_action" -a "`cat ${md}/sync_action`" = "idle" ]
 	then
-		if [ $(cat "${md}/level") == "raid5" ]
+		if [ "`cat ${md}/level`" = "raid5" ]
 		then
 			echo repair > "${md}/sync_action"
 		else
