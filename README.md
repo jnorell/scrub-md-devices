@@ -2,7 +2,7 @@
 Script to periodically scrub linux md devices
 
 # Installation / Usage
-Save this script and run it periodically.
+Save this script and run it periodically, eg. as a monthly cron job:
 
 ```
 wget -O /etc/cron.monthly/scrub-md-devices https://raw.githubusercontent.com/jnorell/scrub-md-devices/master/scrub-md-devices
